@@ -1,0 +1,166 @@
+01. 오늘은 자바스크립트 web 공부 / 객체지향 프로그래밍을 공부할 것이다
+    getElementById('id') = id로 접근한다. 
+    addEventListenr('',) = ? 
+
+02. script.src 태그는 head보단 body에 넣자 
+    브라우저는 head를 먼저 읽고 body를 나중에 읽기에 body에 있는 
+    Id나 클래스의 이름을 조회할 때 브라우저 입장에선 존재하지 않는 매체를 조회하는 거나 마찬가지
+
+    이를 해결하기 위해 (head에 script태그를 넣을려면)
+    window.onload라는 이벤트를 추가시켜주면 된다. 
+
+    head 태그에 넣으면 렌더링이 느려진다 (head태그에 script태그 해석이 끝이 나야 
+    body 태그를 해석하기 시작하기 때문에)
+
+03. BOM 
+    Browser Object Model
+                window
+
+    <DOM>       <BOM>           <JavaScript>
+    document    navigator       Object
+    ...         screen          Array
+                location        Function
+                frames          ...
+                history
+                XMLHttpRequest
+
+    window는 전역 객체 (최상위 객체)
+
+04. alert 
+    alert는 확인을 누르기 전까지 다른 아무것도 할 수 없다. 
+
+05. button onclick
+    버튼을 클릭했을때 자바스크립트를 실행하고 싶으면 두 가지 방법이 있다
+    1) input태그에 onclick 속성을 추가 
+        e.g) <input type="button" onclick="함수()"/>
+        이렇게 해놓구 함수를 js에서 정의를 하면 된다.
+    2) input태그를 id로 호출하기
+         <input type="button" id="btn"/>
+         <script>
+            let btn1 = document.getElementById("btn");
+            btn1.addEventListenr('click',Function(){
+                //함수 정의;
+            })
+    
+06. confirm 
+    확인 / 취소 이라는 버튼을 띄워주는 메서드이고 
+    확인을 누르면 반환값이 true
+    취소를 누르면 반환값은 false이다. 
+
+07. prompt 
+    사용자가 입력한 값을 받아서 자바스크립트가 얻어낼 수 있는 기능 
+    반환값은 입력값이다. 
+
+08. Location 객체 
+    Location 객체는 문서의 주소와 관련된 객체로 window 객체의 프로퍼티다.
+    이 객체를 이용해서 윈도우의 문서 URL을 변경할 수 있고 문서의 위치와 
+    관련해서 다양한 정보를 얻을 수 있다. 
+
+    현재 윈도우의 URL을 알아내는 방법에는 두 가지가 있다. 
+    1) location.toString();  --> alert에서는 location이라고만 써도 자동으로 문자열로 바뀐다.
+    2) location.href;
+
+    location.href = 주소; 
+    이런식으로 작성하게 되면 해당 주소로 url이 바뀌면서 페이지가 이동한다.
+    
+    location.reload;
+    새로고침 
+
+09. Navigator 객체 
+    브라우저의 정보를 제공하는 객체다. 주로 호환성 문제등을 위해서 사용한다. 
+
+    Navigator의 프로퍼티를 알아보자 
+    Navigator.appName : 브라우저의 이름 (Netscape = 크롬, 파이어폭스)
+    Navigator.appversion : 브라우저의 정보 
+    Navigator.userAgent : 브라우저가 서버측으로 전송하는 USER-AGENT HTTP 헤더의 내용 
+
+09. 01 크로스 브라우저
+    브라우저들 마다 사용해야하는 표현법이나 문법들이 서로 상이한 경우가 많고
+    그에 따라 생겨난 게 웹표준이다. 
+    모든 브라우저들은 웹표준에 따라 브라우저를 만들어져야 하기 때문에 대부분의 표현이나 문법들은 호환이 된다.
+
+//  객체지향 프로그래밍 공부
+
+01. 객체란? 
+    서로 연관된 변수와 함수를 그룹핑하고 이름을 붙인 것
+
+    객체를 읽는 법
+    객체이름.프로퍼티 // 값 
+    객체이름['프로퍼티'] // 값 
+
+    객체를 수정하는 법 
+    객체이름.프로퍼티 = 수정할 값 
+
+    객체를 제거하는 법 
+    delete 객체이름.프로퍼티 // 삭제 
+
+    this란?
+    this가 속해져 있는 메소드가 속해져 있는 객체를 가리키는 약속이다.
+
+    Construnctor : 생성자 
+    // 기본 생성자 
+    function Person(){
+        this.name = 'kim';
+        this.first = 10;
+        this.seconds =20;
+        this.sum = function(){
+            return this.first+this.seconds;
+        }
+    }
+
+    console.log(new Person());
+
+    function Person(name,first,seconds){
+        this.name=name;
+        this.first=first;
+        this.seconds=seconds;
+        this.sum =function(){
+            return this.first+this.seconds;
+        }
+    }
+
+    Construnctor는 객체를 찍어내는 작은 공장, 함수와 같다. 
+    공장의 시스템을 바꾸면 생산물이 바뀌듯이 
+    컨스트럭터의 프로퍼티를 바꾸면 생산되는 모든 객체들이 바뀐다.
+    중복제거가 코딩기술 발전의 원천중 하나이고
+    결국 프로그램의 유지보수를 쉽고 편하게 해주는 방법론이다. 
+
+    prototype이란? 한국어로 원형 
+    생성자 안에서 메소드를 만들때는 비효율적임
+    (생산성이 많이 떨어짐--> 유지보수가 좋지 않다.)
+
+    생산자를 통해서 생성된 객체들이 모두 공통적으로 갖는 속성을 만들어보자
+
+    function Person(name,first,seconds){
+        this.name=name;
+        this.first=first;
+        this.seconds=seconds;
+    }
+
+    Person.prototype.sum=function(){
+        return this.first+this.seconds;
+    }
+
+    prototype 이라는 속성을 통해 Person이라는 생성자에 메소드를 추가할 수 있다.
+    
+    1) 자바스크립트는 객체에 메소드를 호출하면 그 객체 자신이 그 메소드를 갖고 있는지를 찾는다
+    2) 만약에 없다면(정의한 적이 없다면 = 그 객체 자신이 가지고 있지 않다면) 
+    3) 생성자의 프로토타입에 호출한 메소드를 정의했는지를 찾는다. 
+
+    
+    생성자에서 생성되지 않은 메서드를 수정할땐 :
+    프로토 타입을 통해 수정이 가능하지만 
+    생성자를 통해서 이미 생성된 경우에는 :
+    프로토 타입을 통해 수정을 할 수 없다
+
+    이미 만들어진 (생성자를 통해) 객체의 메서드를 수정할때에는 
+    kim.sum = function(){} ... 이렇게 수정해주어야 하니 유지보수가 떨어지게 되고 (생성된 모든 객체에 적용해야하니) 
+
+    생성자에 정의 되어 있지 않은 어떤 원형의 (프로토타입의) 메서드를 추가해
+    만들어진 객체들의 메서드를 수정해주어야 할때는
+    선언한 프로토타입 코드블럭 한 줄만 수정해주면 되니 유지보수가 올라가고
+    특정한 객체의 메서드 수정 또한 가능하니 효율적이다 
+
+    프로토타입은 한마디로 수정을 원활하게 해주는 (유지보수를 원활하게 해주는) 가성비 방법론 중 하나다.
+
+
