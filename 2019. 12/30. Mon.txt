@@ -1,0 +1,147 @@
+01. window객체의 프로퍼티중 open이라는 메서드를 알아보자
+    
+    open : 새 창을 생성. window.open은 새 탭으로 연결해서 새 창을 만든다.
+    syntax -> window.open('html')
+              window.open('html','_self') 새 창이 아닌 지금 창을 갱신
+              window.open('html',''_blank') 새 창을 연다 (a링크의 target="_blank")와 같은 역할
+              window.open('html'.'ot') 새 창이 이미 열려있다면(html파일이) 열려있는 페이지를 갱신(새로고침)
+              window.open('html','_blank','width=200,height=200,resizeable=yes') 새로 열릴 창의 크기를 제공 
+    
+    버튼을 통해(사용자의 의지로 인해) 새로운 윈도우가 열리는 경우에는 팝업이 차단되지 않는다.
+    하지만 사이트를 만든 개발자의 의도로 인해 새로운 윈도우가 자동으로 열리는 경우에는 팝업이 차단이 되게끔 브라우저가 
+        설계 되어 있다.
+
+02. <`제어 대상 찾기>
+
+    02-01) getElementsByTagName('tagname');
+           리턴 값은 지정한 태그네임들을 갖고 있는 유사 배열(객체)을 반환 
+           예를 들어, 
+           let list = getElementsByTagName('li');
+           for (let i=0; i<list.length; i++)
+           {...}
+           이런 식의 배열의 메소드를 가져 올 수 있기에 유사 배열이라는 표현을 썼다.
+
+           조회의 대상을 좁히고자 한다면(자식 태그)
+           let list = getElementsByTagName('li');
+           let alink = list.getElementsByTagName('a');
+           // li태그의 자식인 a 태그만 선택이 되어 반환이 된다
+
+    02-02) getElementsByClassName('className');
+           마찬가지로 리턴 값은 지정한 클래스를 갖고 있는 유사 배열(객체)을 반환
+
+    02-03) getElementById('IdName');
+           마찬가지로 리턴 값은 지정한 아이디를 갖고 있는 유사 배열(객체)을 반환
+
+    02-04) querySelector('css 선택자 문법')  
+           css 선택자의 문법을 이용해서 객체를 조회할 수 있다
+           다만 All이 붙지 않을 경우 제일 처음 만나는 해당 코드만을 선택한다.
+           querySelectorAll(..)
+
+           선택자를 이용해서 style의 속성을 바꾸고 싶다면 
+           let list = querySelectorAll('li');
+           for(let name in list){  // name(인덱스) 선언 또한 let을 사용해(var도 가능) 선언을 해주어야 한다.
+               list[name].style.color = 'blue';  //''을 붙여주는 것을 잊지말자
+           }
+           list[]에 .연산자를 눌러보면 알 수 있듯이 선택되어 반환된 유사객체는 
+           많은 메소드들을 갖고 있었다. 공부를 통해 익혀보자 
+
+    02-05) getElementBy* 를 통해 생성된 객체의 이름을 알아 내는 방법 
+           let list = document.getElementsByTagName('tag');
+           list.constructor.name === 객체의 이름 
+           
+           만약 선택된 객체가 
+           하나라면 HTML('tagName')Element // 여기서 태그네임은 대문자이다 
+                                            e.g li = LI 
+                                                a = Anchor 
+                                                input = Input
+                   이 모든 태그들은 HTMLElement의 자식들로서 상속되어진다. 
+           복수라면 HTMLCollection  --> 유사 배열 
+
+           이렇게 선택된 객체가 갖고있는 속성과 메소드를 이용해 제어할 수 있다. 
+           --> css를 통해서 제어할 수 있는 경우가 많다. 
+
+03. jQuery 
+    드디어 제이쿼리 시작이다 
+    제이쿼리는 DOM을 내부에 감추고 보다 쉽게 웹페이지를 조작할 수 있도록 돕는 도구이다.
+
+    03-01) 제어 대상을 찾기 
+    $ : jQuery function 
+    $('css selector') : 선택자는 css 선택자를 사용한다.
+                        jQuery함수를 통해 선택된 jQuery 객체
+    
+    (jQuery 객체).css('프로퍼티','값') 
+                : jQuery 객체의 프로퍼티를 바꿔주는 메소드 
+                  값을 지정하지 않고 '프로퍼티'의 인자만을 쓰면 
+                  css프로퍼티를 반환하는 메서드가 된다. 
+    여기서 css 메소드는 반복문을 사용할 필요가 없이 모든 선택된 객체들을 다 바꾸어 준다
+
+    03-02) .map
+    인자로 함수를 받도록 약속되어 있다. --> 함수형 프로그래밍(콜백함수)
+    (jQuery 객체).map(function(index,elem){
+        ....
+    })
+    .map 메서드는 지정된 jQuery 객체의 모든 요소들을 순회하며 인자로 받은 함수를 실행시킨다. 
+
+04. Element의 API
+
+    04-01) 식별자 API 
+           엘리먼트를 제어하기 위해서는 그 엘리먼트를 조회하기 위한 식별자가 필요하다.
+           HTML에서 엘리먼트의 이름과 id, id 그리고 class는 식별자로 사용된다
+           식별자 API는 이 식별자를 가져오고 변경하는 역할을 한다. 
+
+           01) Element.tagName
+           식별한 엘리먼트의 태그네임을 조회하는 역할 
+
+           02) Element.id
+           문서에서 id는 단 하나만 등장할 수 있는 식별자다. 
+           Element.id // id의 네임을 조회
+           Element.id = 'new'; // id의 네임을 바꾸는 법 
+
+           03) Element.className
+
+           Element.className  // 클래스 네임을 조회
+           Element.className ='new class' // 클래스 네임을 new랑 class로 바꾸어준다
+           Element.className = Element.className +'another' // 원래 클래스 이름에 another라는 클래스를 추가 
+
+           04) Element.ClassList
+
+           class 들을 모두 담은 유사 배열 
+           Element.ClassList  : ClassList 를 조회 
+           // ["첫번째 클래스","두번째 클래스",....]
+           Element.ClassList.add('new') : 추가 
+           Element.ClassList.remove('new') : 제거
+           Element.ClassList.toggle('new') : 추가있으면 지우고 없으면 만드는 
+
+    04-02) 조회 API
+           조회 API는 엘리먼트를 조회하는 기능이다. 
+           지금까지는 document.getElementBy* 메소드를 통해서 엘리먼트를 조회했다.
+           document 객체는 문서 전체를 의미하는 엘리먼트이기 때문에 document의 조회 메소드는 
+            문서 전체를 대상으로 엘리먼트를 조회한다.
+           Element 객체 역시도 getElementBy* 엘리먼트를 가지고 있는데 Element 객체의 조회 메소드는
+            해당 엘리먼트의 하위 엘리먼트를 대상을 조회를 수행한다. 
+
+           
+
+*   콜백함수란? 
+    파라미터로(인자로) 함수를 전달하는 함수
+    e.g 
+    function one(function two(function two의 인자1, 인자2...){
+        //function two의 정의
+    }, function one의 인자2, 인자3...)
+
+
+**  HTTP란?  
+    ㅁ넝ㅁ니ㅏ어ㅣ마너임나이ㅏㅁ너이ㅏㅁ너이ㅏㅁ너임ㄴㅇㅁ
+
+
+
+    
+
+
+
+    
+
+           
+
+
+                      
