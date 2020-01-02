@@ -1,0 +1,219 @@
+공부 출처 : https://velopert.com/3631
+
+어제 복습
+
+ mounting 
+ 컴포넌트가 브라우저 상에 나타날 떄 
+ 1. constructor 
+ 2. getDerivedStateFromProps
+    props로 받은 값을 state에다가 그대로 동기화를 시켜주고 싶다면 사용하는 함수 
+
+ 3. componentDidMount
+    실제로 브라우저 상에 나타날 때 
+    특정 이벤트를 리스닝 할 수 있게 설정할 수 있다. 
+    
+
+updating 
+컴포넌트가 update 될 때 
+1. getDerivedStateFromProps ( componentWillReceviveProps의 기능 포함)
+    props로 받은 값을 state에다가 그대로 동기화를 시켜주고 싶다면 사용하는 함수 
+2. shouldComponentUpdate 
+   --> 렌더링을 할지 말지에 대한 조건을 달아주는 함수 느낌으로 이해
+   
+   순서 : 
+   render -> getSnapshotBeforeUpdate -> 돔에 변화가 발생 -> componentDidUpdate 
+   
+   컴포넌트들은 기본적으로 부모 컴포넌트가 렌더링이 되면 자식 컴포넌트들도 랜더링이 된다. 
+   기본적으로 true 값을 반환 --> render를 한다. 
+           false 값을 반환 --> render를 안 함 
+
+3. getSnapshotBeforeUpdate (componentWillUpdate의 기능을 갖고 있다.)
+   rendering을 한 결과물이 브라우저에 반영되기 직전에 호출되는 함수 
+   스크롤의 위치, 해당 브라우저의 크기 
+
+4. componentDidUpdate 
+   컴포넌트가 업데이트가 되었을 때 호출되는 함수 
+   만약 state가 바뀌었다면 할 수 있는 작업들을 이 함수에서 정의를 한다. 
+
+
+unmounting  
+컴포넌트가 더 이상 필요하지 않게 되면 단 하나의 API가 호출됩니다. 
+componentWillUnmount(){
+    // 이벤트, setTimeout, 외부 라이브러리 인스턴스 제거 
+}
+
+
+ 전체적인 흐름도 
+ 1. constructor 호출 
+ (2)componentWillMount (depricated) => 사용 x 
+ 2. render 
+ 3. componentDidMount 
+
+ 변화 감지 
+ 4. shouldComponentUpdate (?를 달아주면 더 이해하기 쉽다)
+    // 렌더링 해야 되나? (업데이트 해야 하나?) 
+ 5. componentWillUpdate (depricated) => getSnapshotBeforeUpdate
+ 6. render 
+ 7. componentDidUpdate
+
+컴포넌트에 에러 발생 
+
+render 함수에서 에러가 발생한다면, 리액트 앱이 크러쉬 되어버립니다. 
+그러한 상황에 유용하게 사용 할 수 있는 API가 한 가지 있는데 한 번 알아봅시다! 
+
+    ComponentDidCatch(error, info){
+        this.setState({
+            error : tru
+        });
+    }
+    에러가 발생하면 이런식으로 componentDidCatch가 실행되게 하고,
+    state.error 를 true로 설정하게 하고, render 함수 쪽에서 이에 따라 에러를 띄워주시면 됩니다. 
+
+    이 API를 사용하시게 될 때 주의하실 점이 있는데요, 컴포넌트 자신의 render 함수에서 에러가 발생하는 것은
+    잡을 수 없지만, 그 대신에 컴포넌트의 자식 컴포넌트의 내부에서 발생하는 에러들을 잡아낼 수 있습니다. 
+
+    e.g 
+    componentDidCatch(error,info){
+        this.setState({
+            error : true
+        });
+    }
+
+    render(){
+        if(this.state.error) return (<h1>에러발생!</h1>);
+
+        return(
+            ....
+        ) 
+    }
+
+보통, 렌더링 부분에서 오류가 발생하는 것은 사전에 방지해주어야 합니다. 
+주로 자주 에러가 발생하는 이유는 다음과 같습니다. 
+
+    1. 존재하지 않는 함수를 호출
+    2. 배열이나 객체가 올 줄 알았는데, 해당 객체나 배열이 존재하지 않을때 
+    
+이러한 것들은 render 함수에서 다음과 같은 형식으로 막아 줄 수 있습니다. 
+
+    render(){
+        if(!this.props.object || !this.props.array || this.props.array ===0) return null;
+        // object 나 array를 사용하는 코드 
+    }
+
+    혹은 우리가 이전에 배웠었던 컴포넌트의 기본값을 설정하는 defaultProps를 통해서 설정하면 됩니다. 
+
+    class Sample extends Component {
+        static defaultProps = {
+            onIncrement : () => console.warn('onIncrement is not defined),
+            object : {},
+            array : []
+        }
+    }
+
+ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+[Input 상태 관리하기]
+
+첫번째로 만들 컴포넌트는 PhoneForm입니다. 
+이 컴포넌트에서는 사용자에게서 이름과 전화번호를 입력받을 것입니다. 
+input 컴포넌트의 입력을 state에 담는 방법에 대해서 알아봅시다.
+
+input 다루기 
+    우선, src 디렉토리 내부에 components라는 디렉토리를 만드세요.
+    그리고 그 안에 PhoneForm.js라는 파일을 만들어서 다음 코드를 입력하세요. 
+
+        state = {
+            name : ''
+        }
+
+        handleChange = (e) =>{
+            this.setState({
+                name : e.target.value
+            })
+        }
+
+        render(){
+            return(
+                <form>
+                    <input
+                        placeholder="이름"
+                        value = {this.state.name}
+                        onChange={this.handleChange}
+                    />
+                    <div>{this.state.name}</div>
+                </form>
+            );
+        }
+    
+    onChange 이벤트가 발생하면, e.target.value값을 통하여 이벤트 객체 내에 담겨 있는
+    현재의 텍스트 값을 읽어올 수 있습니다. 해당 값을 state의 name 부분으로 설정한 겁니다. 
+
+    render 부분에서 input을 렌더링 할 때에는 value값과 onChange 값을 넣어주었습니다. 
+    onChange이벤트는 input의 텍스트 값이 바뀔 때마다 발생하는 이벤트입니다. 
+    여기에 우리가 만들어 놓은 handleChange 함수를 설정해 놓았습니다. 
+    그리고 나중에 우리가 데이터를 등록하고 나면 이 name 값을 공백으로 초기화 해줄 건데요,
+    그렇게 초기화 됐을 때 input에서도 반영이 되도록 value를 설정해주었습니다. 
+    
+    그리고 그 하단에는 name값이 잘 바뀌고 있는지 확인할 수 있도록 값을 렌더링 해주었습니다. 
+
+    state = {
+        name: '',
+        phone: ''
+    }
+    handleChange = (e) => {
+        console.log(e)
+        this.setState({
+            [e.target.name]: e.target.value
+        });
+    }
+
+    render() {
+        return (
+            <form>
+                <input
+                    placeholder="이름"
+                    value={this.state.name}
+                    onChange={this.handleChange}
+                    name="name"
+                />
+                <input
+                    placeholder="전화번호"
+                    value={this.state.phone}
+                    onChange={this.handleChange}
+                    name="phone"
+                />
+                <div>{this.state.name}{this.state.phone} </div>
+            </form>
+        );
+    }
+
+    아마 또 다른 이벤트 핸들러 함수를 만들면 되지 않을까? 라고 생각하신 분들도 있을 겁니다
+    그 방법은 물론 나쁜 방법은 아닙니다만 더 나은 방법이 있습니다.
+
+    바로, input의 name속성을 사용하는 겁니다. render 부분에 보면 각 input에 name 값을 
+    부여해 주었습니다. 이를 통하여 우리는 각 input을 구분할 수 있게 됐죠.
+
+    이 name값은, event.target.name을 통해서 조회할 수 있습니다. 
+
+부모 컴포넌트에게 정보 전달하기 
+
+이제 state 안에 있는 값들을 부모 컴포넌트에게 전달해줄 차례입니다. 
+이러한 상황에는, 부모 컴포넌트에서 메소드를 만들고, 이 메소드를 자식에게 전달한 다음에 
+자식 내부에서 호출하는 방식을 사용합니다. 
+
+우리는 App 에서 handleCreate 라는 메소드를 만들고, 이를 PhoneForm 한테 전달해주겠습니다. 
+그리고, PhoneForm 쪽에서 버튼을 만들어서 submit이 발생하면 props로 받은 함수를 호출하여 
+App에서 파라미터로 받은 값을 사용할 수 있도록 하겠습니다. 
+
+handleSubmit 함수를 확인해보세요. 
+맨 위에 e.preventDefault()라는 함수가 호출됐죠? 이 뜻은, 원래 이벤트가 해야하는 작업을 방지시킨다는 의미입니다.
+원래는 form에서 submit이 발생하면 페이지를 다시 불러오게 되는데요, 그렇게 되면 우리가 지니고 있는 상태를 다 잃어버리게 되니까 
+이 함수를 통해서 방지해주었습니다. 
+
+그 다음에는, props로 받은 onCreate 함수를 호출하고, 상태값을 초기화 해주었습니다. 
+
+render 부분에서는 submit 버튼을 만들고, form 부분에서 onSubmit 이벤트를 등록해 주었습니다. 
+
+
+
+
