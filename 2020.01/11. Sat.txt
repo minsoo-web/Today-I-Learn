@@ -1,0 +1,50 @@
+리액트를 다루는 기술 4.1.2 
+
+리액트에서 지원하는 이벤트 종류는 다음과 같습니다. 
+
+o Clipboard         o Touch
+o Composition       o UI 
+o keyboard          o Wheel
+o Focus             o Media
+o Form              o Image
+o Mouse             o Animation
+o Selection         o Transtition 
+
+
+이벤트 핸들링 익히기 
+
+컴포넌트 생성 및 불러오기 -> onChange 이벤트 핸들링하기 
+-> 임의 메서드 만들기 -> input 여러개 다루기 -> onKeyPress 이벤트 핸들링 하기 
+
+4.2.1.1 컴포넌트 생성 
+4.2.2 onChange 이벤트 설정 
+      onChange={
+          (e)=>{
+              console.log(e.target.value) // input.value 
+          }
+      }
+4.2.2.2 state에 input 값 담기 
+        onChange={
+            (e)=>{
+                this.setState({
+                    message : e.target.value
+                })
+            }
+        }
+
+        * this.setState({
+            stateName : state에 담을 값 
+        })
+
+4.2.3 임의 메서드 만들기
+      4.1.1절의 주의 사항에서 "이벤트에 실행할 자바스크립트 코드를 전달하는 것이 아니라, 함수의 값을 전달합니다."
+      라고 배웠습니다. 그렇기에 이벤트를 처리할 때 렌더링을 하는 동시에 함수를 만들어서 전달해 주었지만 
+      이 방 법 대신 함수를 미리 준비하여 전달하는 방법도 있습니다. 
+      성능상은 차이가 없지만 가독성이 훨씬 높습니다. 
+      onChange와 onClick에 전달할 함수를 미리 만들어 보겠습니다. 
+
+      함수가 호출될 때 this는 호출부에 따라 결정되므로 클래스의 임의 메서드가 특정 HTML 요소의 이벤트로 등록되는 과정에서
+      메서드와 this의 관계가 끊어져 버립니다. 이 때문에 임의 메서드가 이벤트로 등록되어도 this 를 컴포넌트 자신으로 제대로 가리키기 위해서는
+      메서드를this와 바인딩하는 작업이 필요합니다 
+      만약 바인딩하지 않는 경우라면 this가 undefined를 가리키게 됩니다 
+      
