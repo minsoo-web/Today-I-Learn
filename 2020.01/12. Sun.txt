@@ -1,0 +1,56 @@
+JS 패스트 캠퍼스 김민준 강사 JS 수업 내용 필기 
+
+1. ES6 Class 
+
+    class Animal { 
+        constructor (type,name,sound){
+            this.type = type;
+            this.name = name;
+            this.sound = sound; 
+        }
+        say(){
+            console.log(this.sound);
+        }
+    }
+    const dog = new Animal('개','멍멍이','멍멍');
+
+    dog.say();
+
+    // 클래스에서 상속 받는 법 
+
+    class Dog extends Animal{
+        constructor(name,sound){
+            super('개',name,sound);
+        }
+    }
+
+    const dog = new Dog('멍멍이','멍멍');
+
+   <연습해보기>
+2. Food class 만들기
+    class Food {
+        constructor(name){
+            this.name =name; 
+            this.brands = [];
+        }
+
+        addBrand(brand){
+            this.brands.push(brand)
+        }
+        print(){
+            console.log(`${this.name}을 파는 음식점 들 :`)
+            console.log(this.brands.join(','));
+        }
+    }
+
+    const pizza = new Food('피자');
+    pizza.addBrand('피자헛');
+    pizza.addBrand('도미노 피자');
+
+    pizza.print();
+
+    자바스크립트 입문 끝 ! 
+    ...? 
+
+    공부공부공부 보다는 프로젝트를 진행하며 부딪히는 자바스크립트들을 공부하는 게 더 좋다 
+    
