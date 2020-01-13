@@ -1,0 +1,39 @@
+이번에는 자바스크립트의 Scope에 대해서 알아봅시다. 
+Scope란, 우리가 변수 혹은 함수를 선언할 때 해당 변수또는 함수가 유효한 범위를 의미합니다.
+
+    1. Global(전역) Scope : 코드의 모든 범위에서 사용 가능 
+    2. Function (함수) Scope : 함수 안에서만 사용 가능 
+    3. Block (블록) Scope : if, for, switch 등 특정 블록 내부에서만 사용이 가능 
+
+여기서 var 와 let의 차이를 짚고 넘어가야함 
+var 는 함수 단위의 변수이고 
+let 은 블록 단위의 변수이다. 
+
+Hoisting 이해하기 
+
+Hoisting이란, 자바스크립트에서 아직 선언되지 않은 
+함수/변수를 "끌어올려서" 사용할 수 있는 자바스크립트의 작동 방식을 의미합니다.
+
+    myfunc();
+
+    function myfunc(){
+        console.log("hello");
+    }
+
+    이렇게 정의보다 호출을 먼저 해주어도 자바스크립트 엔진은 위 코드를 해석하는 과정에서 
+    함수를 "끌어올려서" 사용할 수 있게끔 함수를 호출합니다. 
+
+호이스팅은 되도록 사용을 피해야 함 
+다른 사람이 보기에 가독성이 떨어짐 
+
+    console.log(number);
+    var number = 2 ;
+
+    --> 이렇게 읽힘 
+    var number;
+    console.log(number);
+    number = 2; 
+
+    let과 const는 Hoisting이 적용이 안 되고 에러가 뜸 
+
+

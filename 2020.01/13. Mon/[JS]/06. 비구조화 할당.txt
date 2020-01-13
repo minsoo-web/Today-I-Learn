@@ -1,0 +1,67 @@
+객체를 배울때도 배웠던 문법인데
+const objet ={
+    a:1,
+    b:2
+};
+const {a,b} = objet ; 
+
+기본 값을 사용할려면 = 을 사용하면 된다. 
+const {a,b,c=3} = objet; 
+
+배열에도 마찬가지로 사용 가능 
+
+o 비구조화 할당을 통해 객체내의 속성을 바꿔줄 수 있다. 
+    const animal={ 
+        name : '멍멍이',
+        type : '개'
+    }
+    const { name : nickname} =animal; 
+    // 위 코드는 
+        const nickname = animal.name ;  
+        과 비슷해보이지만 
+
+        animal.name 이란 속성이 바뀌는 건 아니다 name 도 그대로이고 
+        nickname 이 name 의 값을 복사한 느낌 
+
+const deepObject = {
+    state : {
+        information : { 
+            name : 'velopert',
+            languages : ['korea','english','chinese']
+        }
+    },
+    value : 5 
+}
+        01 방법 
+        const {name, languages} =deepObject.state.information;
+        const {value} = deepObject;
+
+        02 방법 
+        const {
+            state : {
+                information :{
+                    name, language
+                }
+            },
+            value
+        } = deepObject;
+        
+const extracted = { 
+    name,
+    languages,
+    value
+}
+
+// 위 코드는 
+    const extracted ={ 
+        copyname : name,
+        copylang : languages,
+        copyval : value
+    }
+    처럼 쓸 수 있고 
+    copy 말고 꺼내서 조회하고 싶다면 
+    name : name 이라 쓰면 되지만 
+    이는 위처럼 
+    name, languages 이렇게 생략할 수 있다. 
+
+

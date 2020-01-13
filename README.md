@@ -9,7 +9,7 @@ fastcampus 김민준 강사 : 벨로퍼트와 함께 하는 모던 자바스크�
 
 # 4장 : HTML과 JavaScript 연동하기
 
-[React]
+[React] 
 리액트를 다루는 기술 - 김민준 저자
 
 # 3장 컴포넌트

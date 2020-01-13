@@ -1,0 +1,141 @@
+ES 6에 도입된 문법으로 spread 연산자를 먼저 알아보자 
+
+객체 혹은 배열을 펼칠 수 (spread) 있다. 
+
+예제를 통해 알아보자 
+
+    const slime = {
+        name : '슬라임' 
+    };
+
+    const cuteSlime = {
+        name : '슬라임',
+        attribute : 'cute',
+    };
+
+    const purpleCuteSlime = {
+        name : '슬라임',
+        attribute : 'cute',
+        color : 'puple'
+    };
+
+    이 코드에서 핵심은 기존의 것을 건들이지 않고 새로운 객체를 만든다는 것인데요 
+    이러한 상황에서 사용할 수 있는 유용한 문법이 spread 입니다. 
+
+    const slime = {
+        name : '슬라임' 
+    };
+
+    const cuteSlime ={
+        ...slime,
+        attribute : 'cute'
+    };
+
+    const purpleCuteSlime = {
+        ...cuteSlime,
+        color : 'puple'
+    };
+
+spread 연산자는 배열에서도 사용할 수 있습니다. 
+const animals = ['개', '고양이', '참새'];
+const anotherAnimals = [...animals, '비둘기'];
+
+    o 함수 인자와 spread 
+    함수에서 값을 읽을 때 그 값들을 파라미터라고 부릅니다 
+    함수에서 값을 넣어줄 때 인자라고 부릅니다. 
+
+    우리가 배열 안에 있는 원소들을 모두 파라미터로 넣어주고 싶다고 가정하면 
+
+    const numbers = [1,2,3,4,5,6];
+    const result = sum(
+        numbers[0],
+        numbers[1],
+        numbers[2],
+        numbers[3],
+        numbers[4],
+        numbers[5]
+    )
+
+    이를 만약에 spread를 사용하면 
+
+    const numbers = [1,2,3,4,5,6];
+    const result = sum(...numbers);
+
+
+[rest]
+
+rest는 생김새는 spread랑 비슷한데, 역할이 매우 다릅니다. 
+rest는 객체, 배열, 그리고 함수의 파라미터에서 사용가능합니다. 
+
+    o 객체에서의 rest 
+    const purpleCuteSlime = { 
+        name : '슬라임',
+        attribute : 'cute',
+        color : 'puple'
+    };
+
+    const {color , ...rest} = purpleCuteSlime;
+
+    rest는 color를 제외한 속성과 값들을 담은 객체로 비구조화 할당 됌 
+
+rest는 객체와 배열에서 사용할 때에는 이렇게 비구조화 할당 문법과 함께 사용됩니다. 
+주로 사용할 때는 위와 같이 rest라는 키워드를 사용하는데 굳이 rest로 사용할 필요는 없다. 
+
+    o 배열에서의 rest 
+    const numbers = [0,1,2,3,4,5];
+    const [one,...rest] = numbers;
+
+    ** 이건 안 됌 
+    const [...rest,last] =numbers;
+
+    o 함수 파라미터에서의 rest 
+    rest를 함수 파라미터에서 사용할 수도 있습니다. 
+    예를 들어서 우리가 파라미터로 넣어준 모든 값들을 합해주는 함수를 만든다면 
+        const sum = (a,b,c,d,e,f,g) => {
+            let sum = 0 ;
+            if(a) sum += a; 
+            if(b) sum += b;
+            if(c) sum += c;
+            if(d) sum += d;
+            if(e) sum += e;
+            if(f) sum += f;
+            if(g) sum += g;
+            return sum; 
+        }
+
+        위에서의 sum 함수는 7개의 파라미터를 받아오는데, 아래에서 사용할 때는 6개만 넣어줬습니다. 
+        그러면 g값이 undefined 가 되기 때문에 sum에 더하는 과정에서 += undefined 를 하게 되면
+        결과는 NaN이 되어버립니다. 
+        그렇기 때문에 함수에서 하나하나 유효한 값인지를 확인해 주었죠 
+
+        함수의 파라미터에서 몇 개가 될 지모르는 상황에서 rest 파라미터를 사용하면 매우 유용합니다. 
+        
+        const sum =(...rest){  // rest = [인자로 받은 파라미터들이 배열에 담김]
+            return rest.reduce((acc,current) => acc + current, 0);
+        }
+
+퀴즈 : n개의 파라미터로 받은 값들 중 가장 큰 값을 찾는 함수를 만들어라 
+
+내 답 
+function max(...numbers){
+    let bigNumber;
+    for(let i =0; i<numbers.length; i++){
+        if(numbers[i]>numbers[i+1]){
+            bigNumber = numbers[i];
+        }
+    }
+    return bigNumber;
+}
+
+const result = max(1,2,3,4,56,7,8,9);
+console.log(result);
+
+reduce를 사용한 답 
+function max(...numbers){
+    return numbers.reduce(
+        // acc 이 current 보다 크면 결과 값을 current로 하고 
+        // 그렇지 않으면 acc가 결과 값 
+        (acc,current)=>( current > acc ? current : acc),
+    numbers[0]
+    );
+}
