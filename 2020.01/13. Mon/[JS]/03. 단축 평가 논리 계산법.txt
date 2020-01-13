@@ -1,0 +1,36 @@
+short-circuit evaluation 
+논리 연산자를 이용해서 코드를 짧게 쓰는 방법 
+
+true && true // true 
+true || false // true 
+
+논리 연산자는 양 옆의 값을 다 비교해서 결과 값을 낸다면
+양 옆의 값을 항상 true 와 false 값만을 이용하는 것이 아닌 
+truthy 와 falsy한 값을 사용할 수 있다 
+
+어떻게 단축이 되는지 예제를 통해 알아보자 
+const dog = { 
+    name : '멍멍이' 
+};
+
+function getName(animal){
+    if(animal){
+        return animal.name;
+    }
+    return undefined;
+}
+
+const name = getName(dog);
+console.log(name); // '멍멍이'
+console.log(); // 
+--> 단축 평가 논리 계산법을 이용하면? 
+
+function getName(animal){
+   return animal && animal.name ; 
+   // 빈 값일 경우 떠야하는 값 && 참이여야 뜨는 값
+}
+
+truthy && anything 결과물은 무조건 anything 
+truthy1 || anything 결과물은 무조건 truthy1
+falsy || anything 결과물은 무조건 anything 
+

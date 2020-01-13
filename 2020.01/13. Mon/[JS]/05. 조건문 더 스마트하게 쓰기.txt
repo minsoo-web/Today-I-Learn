@@ -1,0 +1,56 @@
+특정 값이 여러 값들 중 하나인지 확인해야 할 경우 
+
+function isAnimal(text){
+    return (text === '고양이'|| text ==='개' || text ==='거북이' || text === '너구리');
+}
+
+--> 배열 내장 함수를 사용해 조금 더 간결한 코드 작성 
+function isAnimal(text){
+    const animals = ['고양이','개','거북아','너구리'];
+    return animals.includes(text);
+}
+
+배열 내장 함수 includes(sumthing)
+배열안에 sumthing이 있다면 true 없으면 false 
+
+function getSound(animals){
+    if(animals === '개') return '멍멍';
+    if(animals === '고양이') return '야옹';
+    if(animals === '참새') return '짹짹';
+    if(animals === '비둘기') return '구구 구 구';
+    return '...?'
+}
+
+--> switch case 문을 쓴다고 해도 그렇게 좋은 코드가 되진 않음 
+    retun을 해준다면 break를 따로 해줄 필요가 없음 
+
+--> 객체를 활용 
+
+function getSound(animals){
+    const sounds = {
+        key : 'value' 
+        개 : '멍멍',
+        고양이 : '야옹',
+        비둘기 : '구구 구 구',
+        참새 : '짹짹'
+    };
+    return sounds[animals] || '...?';
+}
+
+function makeSound(animals){
+    const sounds = {
+        key : function() {},
+        개 : ()=>{
+            console.log('멍멍');
+            },
+        고양이(){
+            console.log('야옹');
+        }
+    }
+    const task = sounds[animals];
+    if(!task){
+        console.log('...?');
+        return;
+    }
+    task();
+}
