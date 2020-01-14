@@ -1,0 +1,44 @@
+간단하게 4장을 복습하고 넘어가고자 합니다. 
+
+4장에서는 
+1. onChange 
+2. onClick 
+3. onKeyPress 
+
+3가지의 이벤트를 예제를 통해 구현해 봤습니다. 
+
+또한 이벤트에 전달할 메서드를 만들어 코드를 간결하게 만드는 작업도 해봤습니다. 
+
+기억할만한 몇가지 포인트들만 짚고 넘어가겠습니다. 
+
+1> state에 input 값 담기 
+    1. state 선언
+    2. input.value = this.state.stateName // 인풋의 벨류와 선언한 state를 연결 
+
+2> onChange = {
+        (e)=>{
+            this.setState({
+                stateName : e.target.value 
+            })
+        }
+    }
+
+3> 버튼을 누르면 state를 공백으로 설정 
+    onClick = { 
+        this.setState({
+            stateName : ''
+        })
+    }
+
+4> onKeyPress = (e)=>{
+    if(e.key ==='Enter'){
+        this.setState({
+            stateName : ''
+        })
+    }
+}
+
+함수형 컴포넌트에서는 
+1. state를 배열에 담는다
+2. this.setState ==> useState를 통해
+
