@@ -1,0 +1,36 @@
+promise는 실제 우리가 사용하는 약속이라는 단어와 비슷한 의미를 가지고 있습니다.
+
+그리고 그 약속에는 두 가지 결과가 존재하죠 
+
+성공했거나 => resolved(해결했다)
+실패했거나 => rejected(거절했다)
+
+Promise가 어떤 것인지 보여주는 코드 
+
+    let p = new Promise((resolved, rejected)=>{
+        let a = 1+1 // 약속하기로 한 코드 
+        if( a ===2){
+            resolved('success')  // 성공했을 때 
+        }
+        else{
+            rejected('failed')  // 실패했을 때 
+        }
+    })
+
+이 Promise 라는 것은 객체입니다. 하나의 함수 파라미터를 갖는데 
+그 함수는 2개의 콜백함수를 인자로 갖습니다. 
+한 개는 resolve 
+나머지 하나는 reject
+
+이제 정의한 Promise 객체와 어떻게 상호작용 하는지 알아 보기 위해선 then 이라는 method를 사용해야 합니다
+
+    p.then((message)=>{ // 여기서 message 는 resolved 함수에 전달된 인자이고 (여기서는 success)
+        ... // 여기 적힐 코드는 성공했을때 실질적으로 진행될 코드이다. 
+    }).catch((message)=>{
+        ... // 여기 적힐 코드는 실패했을 때 실질적으로 진행될 코드 
+    })
+
+.then() 안에 들어가는 것은 resolve 됐을 때 실행될 코드  
+.catch() 안에 들어가는 것은 reject 됐을 때 실행될 코드 
+
+

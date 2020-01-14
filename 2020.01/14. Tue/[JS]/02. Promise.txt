@@ -34,7 +34,7 @@ Promise 만들기
 성공 할때는 resolve를 호출해주면 되고 
 실패 할때는 reject를 호출해주면 됩니다 
 
-const myPromise = new Promise(resolve, reject)=>{
+const myPromise = new Promise((resolve, reject)=>{
     setTimeout(()=>{
         resolve('result');
     },1000)

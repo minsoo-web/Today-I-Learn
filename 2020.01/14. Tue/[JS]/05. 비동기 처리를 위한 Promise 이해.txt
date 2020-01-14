@@ -1,0 +1,113 @@
+참고 문헌 
+https://velog.io/@cyranocoding/2019-08-02-1808-%EC%9E%91%EC%84%B1%EB%90%A8-5hjytwqpqj
+
+자바스크립트 엔진은 Single Thread 이다. 
+그래서 두 가지 작업을 동시에 할 수 없다. 
+그렇다면 여러 작업이 동시에 요청이 될 때 이전 작업이 마무리 될 때까지 기다려야 하는가?
+그렇다. 
+
+그래서 JavaScript 엔진은 비동기 처리가 가능하도록 설계 되었다. 
+
+비동기(Asynchronous)란? 
+동기(Synchronous)적 처리는 작업을 요청함과 동시에 작업의 결과를 그 자리에서 받을 수 있는 데이터 처리 방식이다. 
+그 반대로
+비동기적 처리는 작업을 요청하지만 결과는 그 자리에서 꼭 받지 않아도 되는 데이터 처리 방식이다. 
+
+    카페에서 커피를 주문할 때, 앞사람이 주문을 하고 주문한 커피를 다 제공한 다음 
+    다음 사람의 주문을 받는 다면 동기적 처리라고 볼 수 있다. 
+    반대로 모든 사람의 주문을 한꺼번에 받고 커피가 완성되는 대로 사람들에게 커피를 제공한다면 
+    비동기적 처리이다. 
+
+setTimeout은 몇 초 뒤에 실행하고자 하는 function을 미리 설정하는 메소드이다. 
+요청한 즉시 결과를 얻어야 하는 것이 아니기 때문에 비동기적 처리의 대표적인 예이다. 
+
+console.log("first");
+
+setTimeout(function setTimeout() {
+    console.log("async");
+}, 1000);
+
+console.log("second");
+
+위의 코드를 V8(JavaScript Engine)은 다음의 순서로 처리하고 있다. 
+
+    1) 첫번째 first를 콘솔에 log 한다. 
+    2) 1초 뒤에 async를 콘솔에 log하는 함수를 실행하기로 약속한다. 
+    3) 약속한 함수는 web API에서 기억하고 있다. 
+    4) second를 콘솔에 log한다. 
+    ... 1초 뒤 
+    5) web API는 Callback Queue에 async를 콘솔에 log하는 함수를 보낸다. 
+    6) EventLoop는 Callback Queue에 들어온 순서대로 Call Stack으로 보내 실행이 되도록 한다. 
+
+간단 용어 설명 
+
+Call Stack
+    : 작업이 바로 실행되고 다 실행되면 작업이 빠지는 공간 
+
+Callback Queue 
+    : 비동기 작업이 대기하고 있다가 Call Stack의 작업이 비어있으면 
+      EventLoop의 명령에 따라 차례로 Call Stack으로 들어가는 공간이다 
+      (비동기 작업들이 줄서는 곳)
+
+EventLoop 
+    : 비동기/동기 작업의 순서를 관리하는 역할 
+
+Promise 
+JavaScript에서 Promise는 비동기적으로 실행하는 작업의 결과(성공 or 실패)를 
+나타내는 객체이다. 
+여기서 주목해야 할 점은 객체 라는 것인데, 비동기의 결과를 객체화 시킨다는 점이 Promise의 가장 큰 장점이자 단점이다. 
+
+Promise 생성자
+생성자 함수와 동일하게 new로 Promise 객체를 만들 수 있다. 
+이 때 인자로는 Executor가 들어가는데 Executor는 
+resolve와 reject 라는 두 개의 함수를 매개변수로 받는 실행 함수이다. 
+Executor는 비동기 작업을 시작하고 모든 작업을 끝낸후, 해당 작업이 성공적으로 이행되었으면 resolve 함수를 호출하고 
+중간에 오류가 발생한 경우 reject 함수를 호출한다. 
+
+    const timeAttack = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        let ran = Math.random() * 10;
+        if (ran >= 5) {
+        resolve(ran);
+        } else {
+        reject();
+        }
+    }, 1000);
+    });
+
+이 경우에 timeAttack 이라는 Promise 객체는 3가지 상태를 가진다. 
+
+    대기(pending) : 아직 실행되지 않은 초기 상태 
+    이행(fulfilled) : 작업이 성공적으로 완료됨 
+    거부(rejectd) : 작업이 실패함 
+
+작업이 성공적으로 이행이 되었거나, 실패했을 때, 어떤 작업을 해야하는데 이 작업은 
+then 메소드에 의해 실행된다. 이는 callback 실행한 것과 같은 효과를 낸다. 
+then 메소드는 promise 객체에 붙여서 사용한다. 
+
+timeAttack.then((num)=>{
+    console.log(num + 'complete');
+},
+()=>{
+    console.log('error')
+})
+
+promise.then(successCallback, failureCallback) 이러한 방식으로 콜백을 실행 할 수 있다. 
+
+chaining 
+then 메소드는 Promise 객체를 리턴하고 
+인수로 받은 콜백 함수들의 리턴 값을 이어받는다. 
+따라서 chaining이 가능하다 
+
+이러한 chaining을 통해 callback hell을 말끔히 탈출할 수 있는것은 아니지만 
+callback을 함수로 바로 넘겨받지 않고 객체에 이어서 사용할 수 있게 되면서 훨씬 보기 쉬워졌다.  
+
+promise.then(function(a){
+    ...a 함수
+}).then(function(b){
+
+}).then(function(c){
+
+}).then(function(d){
+
+})
