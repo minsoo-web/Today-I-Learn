@@ -1,10 +1,9 @@
 #[JS]
 
-<em>1. 비동기 처리의 이해</em>
-
-2.  Promise
-3.  async, await
-4.  Promise all, Promise.race
+<s>1. 비동기 처리의 이해</s>
+<s>2. Promise</s>
+<s>3. async, await</s>
+<s>4. Promise all, Promise.race</s>
 
 #[React]
 
@@ -16,4 +15,4 @@
 
 #[Data Structure]
 
-1.  Stacks
+<s>1. Stacks</s>
