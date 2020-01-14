@@ -1,0 +1,50 @@
+프로미스는 비동기 작업을 조금 더 편하게 처리할 수 있도록 ES6에 도입된 기능입니다. 
+이전에는 비동기 작업을 처리 할 때에는 콜백함수로 처리를 해야 했었는데요, 콜백함수로 처리를 하게 된다면
+비동기 작업이 많아질 경우 코드가 쉽게 난잡해지게 되었습니다. 
+
+
+    function increaseAndPrint(n, callback) {
+    setTimeout(() => {
+        const increased = n + 1;
+        console.log(increased);
+        if (callback) {
+        callback(increased);
+        }
+    }, 1000);
+    }
+
+    increaseAndPrint(0, n => {
+    increaseAndPrint(n, n => {
+        increaseAndPrint(n, n => {
+        increaseAndPrint(n, n => {
+            increaseAndPrint(n, n => {
+            console.log('끝!');
+            });
+        });
+        });
+    });
+    });
+
+이런 식의 코드를 Callback Hell 콜백 지옥 이라고 부릅니다. 
+비동기적으로 처리해야 하는 일이 많아질 수록 코드의 깊이가 계속 깊어지는 현상이 있는데요 
+promise를 사용하면 이렇게 코드의 깊이가 깊어지는 현상을 방지 할 수 있습니다. 
+
+Promise 만들기
+프로미스는 성공할 쑤도 있고 실패할 수도 있습니다. 
+성공 할때는 resolve를 호출해주면 되고 
+실패 할때는 reject를 호출해주면 됩니다 
+
+const myPromise = new Promise(resolve, reject)=>{
+    setTimeout(()=>{
+        resolve('result');
+    },1000)
+});
+
+myPromise.then(result=>{
+    console.log(result);
+}).catch(e=>{
+    console.error(e)
+})
+
+
+
