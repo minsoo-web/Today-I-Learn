@@ -1,0 +1,31 @@
+5장에서는 ref라는 개념을 배웠다 
+    ref란 DOM에 id를 달아서 JS가 접근하듯 
+    react가 DOM에 직접 접근하는 방식이다 
+
+    여기서 짚고 넘어가야 하는 점은 가능하면 state의 조작으로 해결을 하되 
+    안 될 경우에만 ref를 달아야 한다는 것이다 
+    왜냐하면 컴포넌트끼리 데이터를 교류할때에는 부모<->자식간의 props 데이터 교류 방식이여야 하기 때문입니다. 
+
+    몇가지 ref를 꼭달아야 하는 상황들을 짚고 넘어가면 
+        1. 특정 input에 포커스 주기 
+        2. 스크롤 박스 조작하기 
+        3. Canvas 요소에 그림 그리기 등 
+
+    마지막으로 ref를 다는 방법 두 가지를 복습하고 6장 공부로 넘어가겠다. 
+
+        1. 콜백함수 
+            <div 
+                ref = {(ref)=>{this.myDiv=ref}} />
+
+        2. createRef 설정 
+        class ComponentName extends Component {
+            input = React.createRef();
+
+            ...
+            render(){
+                return(
+                    <input 
+                        ref= {this.input} />
+                )
+            }
+        }

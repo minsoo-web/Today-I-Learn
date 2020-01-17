@@ -1,0 +1,40 @@
+1. render 
+   이 메서드는 컴포넌트 모양새를 정의합니다. 
+   그렇기에 컴포넌트에서 가장 중요한 메서드라고 할 수 있죠. 라이프사이클 메서드중 유일한 필수 메서드이기도 합니다. 
+
+   이 메서드 안에서 this.props 와 this.state에 접근할 수 있으며 리액트 요소를 반환합니다. 
+   
+   * 이 메서드 안에서는 이벤트 설정이 아닌 곳에서 setState를 사용해서는 안 되며 브라우저의 DOM에 접근해서도 안 됩니다 
+   DOM 정보를 가져오거나 state에 변화를 줄 때는 componentDidMount에서 처리해야 합니다. 
+
+2. constructor 메서드 
+   컴포넌트의 생성자 메서드로 컴포넌트를 만들 때 처음으로 실행됩니다. 
+   이 메서드에서는 초기 state를 정할 수 있습니다. 
+
+3. getDerivedStateFromProps 메서드 
+   이것은 리액트 v16.3 이후에 새로 만든 라이프사이클 메서드입니다.
+   props로 받아온 값을 state에 동기화 시키는 용도로 사용하며,
+   컴포넌트가 마운트될 때와 업데이트 될 때 사용합니다. 
+
+    static getDerivedStateFromProps(nextProps, prevState){
+        if(nextProps.value !== prevState.value){ // 조건에 따라 특정 값 동기화
+            return {value : nextProps.vlaue};
+        }
+        return null;
+    }
+
+4. componentDidMount 메서드 
+   이것은 컴포넌트를 만들고, 첫 렌더링을 마친 후 실행합니다. 
+   이 안에서 다른 자바스크립트 라이브러리 또는 프레임 워크 함수를 호출하거나 이벤트 등록, setTimeout, setInterval, 네트워크 요청 같은 걸 하시면 됩니다. 
+
+5. shouldComponentUpdate 메서드 
+   이것은 props 또는 state를 변경 했을 때 리렌더링을 시작할지 여부를 지정하는 메서드입니다. 
+   이 메서드에서는 반드시 true 값 또는 false 값을 반환해야 합니다.
+   컴포넌트를 만들 때 이 메서드를 따로 생성하지 않으면 기본적으로 언제나 true 값을 반환합니다. 이 메서드가 false 값을 반환한다면 업데이트 과정은 여기서 중지됩니다. 
+
+   이 메서드 안 에서 현재 props와 state는 this.props와 this.state로 접근하고 새로 생성될 props 또는 state는 
+   nextProps와 nextState로 접근할 수 있습니다. 
+
+6. getSnapshotBeforeUpdate 메서드 
+   이것은 리액트 v16.3 이후 만든 메서드입니다. 
+   

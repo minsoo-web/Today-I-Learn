@@ -1,0 +1,11 @@
+DOM 요소 선택하기 
+
+document.getElementById("id이름")
+document.getElementsByTagName("태그이름")
+document.getElementsBYClassName("클래스이름")
+
+이벤트 설정하기 
+
+.onclick  
+.onchange
+.onkeypress 
