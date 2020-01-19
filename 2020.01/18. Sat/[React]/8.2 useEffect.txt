@@ -1,0 +1,67 @@
+useEffect는 리액트 컴포넌트가 렌더링될 때마다 특정 작업을 수행하도록 설정할 수 있는 Hook 입니다. 
+클래스형 컴포넌트의 
+componentDidMount 와 componentDidUpdate 를 합친 형태라고 봐도 무방합니다. 
+
+8.2.1 마운트 될 때만 실행하고 싶을 때 
+useEffect 에서 설정한 함수를 컴포넌트가 화면에 맨 처음 렌더링 될 때만 실행하고 
+업데이트 될 때는 실행하지 않으려면 함수의 두 번째 파라미터로 비어 있는 배열을 넣어주면 됩니다. 
+
+e.g 
+useEffect(()=>{
+    console.log("마운트될 때만 실행됩니다");
+},[]);
+
+
+8.2.2 특정 값이 업데이트 될 때만 실행하고 싶을 때 
+useEffect를 사용할 때 특정 값이 변경될 때만 호출하고 싶을 경우엔 두 번째 파라미터로 검사하고 싶은 값을 넣은 배열을 넣어주면 됩니다. 
+
+e.g 
+useEffect(()=>{
+    console.log(name);
+},[name])
+
+배열 안에는 useState를 통해 관리하고 있는 상태를 넣어주어도 되고,
+props로 전달 받은 값을 넣어주어도 됩니다. 
+
+8.2.3 컴포넌트가 언마운트 되기 전이나 업데이트 되기 직전에 어떤 작업을 수행하고 싶다면 useEffect에서 
+뒷정리 함수 (cleanup) 을 반환해 주어야 합니다. 
+
+e.g 
+
+useEffect(() => {
+    console.log("effect");
+    console.log(name);
+    return () => {
+      console.log("clean");
+      console.log(name);
+    };
+  });
+
+컴포넌트가 나타날 때 effect가 나타나고 사라질 때 clean 이 나타납니다 
+그리고 뒷정리 함수가 호출 될 때는 업데이트 되기 직전의 값을 보여줍니다. 
+
+* 오직 언마운트 될 때만 뒷정리 함수를 호출하고 싶다면 
+useEffect의 두번 째 파라미터에 비어있는 배열을 넣으면 됩니다 
+
+useEffect(() => {
+    console.log("effect");
+    console.log(name);
+    return () => {
+      console.log("clean");
+      console.log(name);
+    };
+  },[]);
+
+  --> 이렇게 하면 언마운트 될 때만 뒷정리 함수 부르기 + 마운트 될 때만 실행하기 
+  useEffect(() => {
+    console.log("effect");
+    console.log(name);
+    return () => {
+      console.log("clean");
+      console.log(name);
+    };
+  },[name]);
+
+  --> 이렇게 하면 name 값이 업데이트 될 때만 호출 
+
+  
