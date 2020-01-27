@@ -1,0 +1,54 @@
+useCallback 
+ 함수의 재 생성 방지 
+
+함수 정의할 때 최적화를 위해 해주어야 함 
+어떤 값이 바뀌 었을 때 함수가 재정의 되어야 함을 선택하고 싶으면 두 번째 파라미터에 변수를 지정해주면 된당 
+
+입력 const onChange = useCallback(
+    (e) => {
+        const {name,value} = e.target
+        setForm({
+            ...form,
+            [name]:[value]
+            });
+    },
+    [form]
+)
+추가 const onInsert = useCallback(
+    (e)=>{
+        e.preventDefault();
+        const info ={
+            id : nextId.current,
+            name : form.name,
+            username : form.username
+        }
+        setData({
+            ...data,
+            array : data.array.concat(info)
+        })
+        setForm({
+            name:"",
+            username:""
+        });
+        nextId.current+=1;
+    },
+    [data,form.name,form.username]
+)
+삭제 const onRemove = useCallback(
+    (id)=>{
+        setData({
+            ...data,
+            array : data.array.filter(info=> info.id !== id)
+        })
+    },
+    [data]
+)
+
+배열 리스트로 변환 
+<ul>
+    {data.array.map(
+        info=>(<li key={info.id} onClick={onRemove}>
+         {info.username} ({info.name})
+        <li/>)
+    )}
+</ul>
