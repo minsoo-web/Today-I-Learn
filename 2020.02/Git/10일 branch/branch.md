@@ -47,7 +47,7 @@ $ git init
 ![gitlogError](./img/branch-logError.png)
 <br/>혹시 이런 에러가 뜨셨다면 자연스러운 현상입니다. 아직 기둥이 자라나질 않아서 추적할 뿌리가 없는 상태이니깐요. 영어 읽어보니 커밋한게 아직 하나도 없어서 에러라네요. <br/>커밋을 안 했다 == 물과 양분을 안 줬다 == 기둥이 안 자랐다.<br/> 이해가 되시나요??
 
-그럼 이제 README.md 파일 하나를 생성해줌으로써 커밋 변경 사항 하나를 만들어 줍시다.
+그럼 이제 README\.md 파일 하나를 생성해줌으로써 커밋 변경 사항 하나를 만들어 줍시다.
 ![README](./img/branch-README.png)
 작성하고 저장을 해주시면, (에디터의 자동저장 기능을 사용하셔도 됩니다.)<br/> vscode의 깃 아이콘에 1이라는 숫자가 추가 되고 주황 색으로 U라고 뜨죠?!<br/> 여기서 1의 의미는 현재 디렉토리(git repositroy)안에서 변경된 파일의 개수를 의미하고<br/>각각의 알파벳은 <br/> U : Untracked 추적되지 않은 상태<br/> D : Delete 삭제<br/> A : Added 추가<br/> M : Modified 수정<br/> C : Confilct 충돌로 인해 merge가 안 될 때<br/> R : Renamed 파일 이름 변경 <br/>이렇게 6가지의 의미입니다.
 
@@ -225,7 +225,7 @@ $ git checkout -b branch2
 
 이는 master 브랜치일 경우엔 'master' 에서 커밋할... 이라고 뜨게 됩니다.
 
-이제 branch1에서 README.md 파일에 변화를 주고 `git status`로 터미널에서도 상태를 확인해 보겠습니다.
+이제 branch1에서 README 파일에 변화를 주고 `git status`로 터미널에서도 상태를 확인해 보겠습니다.
 
 ![modify-4](./img/modify4.png)
 
