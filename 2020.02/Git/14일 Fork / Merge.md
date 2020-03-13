@@ -30,7 +30,7 @@ cli 창을 보며 어떻게 진행되는 지 살펴보자
 우선 git fetch 명령어를 실행 시켜준 후에
 git adog (git log --all --decorate --oneline --graph )를 해서 log를 본 화면은 다음과 같다.
 
-```
+```bash
 git fetch
 git log --all --decorate --oneline --graph
 ```
@@ -40,7 +40,7 @@ git log --all --decorate --oneline --graph
 origin/master가 로컬의 master 보다 앞선 것을 볼 수 있다.
 HEAD-> 는 현재 브랜치가 머물고 있는 이라는 의미이다.
 
-```git
+```bash
 git status
 ```
 
@@ -51,7 +51,7 @@ Your branch is behind 'origin/master' by 1 commit
 
 시키는 대로 한 번 해봅시다.
 
-```git
+```bash
 git pull
 git log --all --decorate --oneline --graph
 ```
@@ -107,7 +107,7 @@ fork 한 레포에 들어가서 clone or download라는 버튼을 누르면 복�
 URL을 미리 복사해 놓으시구
 cli 창을 띄워서 다음과 같은 명령어를 입력하시면 됩니다.
 
-```
+```bash
 <!-- 로컬 저장소를 만들어줍니다. -->
 cd ~
 cd desktop
@@ -126,14 +126,14 @@ git pull origin master
 
 그럼 이제 브랜치를 생성하고 수정작업까지 해보겠습니다.
 
-```
+```bash
 <!-- 브랜치 생성 -->
 git checkout -b patch-1
 ```
 
 ![beforepull](./img/modify.png)
 
-```
+```bash
 git add .
 git commit -m "add : git 공부 카테고리 추가"
 git push origin patch-1
@@ -180,7 +180,7 @@ PR이 끝나고 변경사항이 반영이 됩니다.
 먼저 원본 repository를 remote repository로 추가해야하니다.
 Fork 해온 repository 에서 remote repository를 확인하면 아래와 같이 나올 겁니다.
 
-```
+```bash
 git remote -v
 origin http://github.com/your_username/your_fork.git (fetch)
 origin http://github.com/your_username/your_fork.git (push)
@@ -188,13 +188,13 @@ origin http://github.com/your_username/your_fork.git (push)
 
 이제 동기화해오고 싶은 원본 repository를 upstream 이라는 이름으로 추가합니다.
 
-```
+```bash
 git remote add upstream http://github.com/original_owner/original_repository.git
 ```
 
 upstream repository 가 제대로 추가 되었는지 확인해주면
 
-```
+```bash
 git remote -v
 origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
 origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)
@@ -204,32 +204,30 @@ upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (push)
 
 이제 fetch 명령어를 통해 최신 상태를 받아옵니다.
 
-```
-git fetch upstream
+```bash
+git fetch upstream master
 ```
 
 그런 다음 master 브랜치로 옮긴 뒤 나의 local master 브랜치로 최신 상태를 merge합니다.
 
-```
+```bash
 git master ( // git checkout master)
 git merge upstream/master
 ```
 
-이 과정까지는 local repository에서 일어난 것이므로 push를 통해 remote repository에 적용시켜주면 완료입니다! 
+이 과정까지는 local repository에서 일어난 것이므로 push를 통해 remote repository에 적용시켜주면 완료입니다!
 
-```
+```bash
 git push origin master
 ```
 
 만약 이 과정에서 다음과 같은 에러가 뜨실 수 있습니다 (제가 그랬습니다.)
 ![beforepull](./img/pushError.png)
-하나하나 읽어보니 push하기 전에 pull을 하라는 거네요. 
+하나하나 읽어보니 push하기 전에 pull을 하라는 거네요.
 
-```
+```bash
 git pull origin master
 git push origin master
 ```
 
-변경된 사항들이 포크한 제 계정에도 동기화 됨을 확일 할 수 있습니다! 
-
-
+변경된 사항들이 포크한 제 계정에도 동기화 됨을 확일 할 수 있습니다!
