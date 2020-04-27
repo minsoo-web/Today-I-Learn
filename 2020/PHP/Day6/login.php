@@ -19,7 +19,7 @@ session_start();
         <form method="POST" action="login_ok.php">
             <p><label>아이디 : <input type="text" name="userId"></label></p>
             <p><label>비밀번호 : <input type="password" name="userPw"></label></p>
-            <p><input type="submit" value="로그인"></p>
+            <p><input type="submit" value="로그인"><input type="button" value="회원가입" onclick="location.href='regist.php'"></p>
         </form>
     <?php
     } else {
