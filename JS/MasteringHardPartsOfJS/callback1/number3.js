@@ -8,5 +8,6 @@ function map(arr, callback) {
   return brr;
 }
 
-console.log(map([1, 2, 3], addTwo));
+// console.log(map([1, 2, 3], addTwo));
 
+module.exports = map;

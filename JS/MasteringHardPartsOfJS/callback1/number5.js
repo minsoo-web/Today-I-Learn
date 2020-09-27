@@ -3,8 +3,8 @@ const forEach = require("./number4");
 
 function mapWith(arr, callback) {
   let brr = [];
-  forEach(arr, function () {
-    // brr.push(forEach(arr, callback));
+  forEach(arr, (item) => {
+    brr.push(callback(item));
   });
   return brr;
 }
