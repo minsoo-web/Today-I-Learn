@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+
+  background-image: url("https://images.unsplash.com/photo-1538590858070-9b10e744fd78?ixlib=rb-1.2.1&auto=format&fit=crop&w=1778&q=80");
+  background-size: cover;
+  background-position: center center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-height: 100vh;
+  margin: 0;
+  color: #fff;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 4rem;
+  margin-top: 5rem;
+}
+
+.countdown-container {
+  display: flex;
+}
+
+.big-text {
+  font-weight: bold;
+  font-size: 6rem;
+  line-height: 1;
+  margin: 0 2rem;
+}
+
+.countdown-el {
+  text-align: center;
+}
+.countdown-el span {
+  font-size: 1.3rem;
+}
