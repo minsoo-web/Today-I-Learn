@@ -14,7 +14,7 @@
 
 ## pipeline 생성
 
-![파이프라인](https://d32r1sh890xpii.cloudfront.net/article/1680x700/3cae4538d3e2cb9f1240e5ad809ef18e.jpg)
+<img width="1239" alt="스크린샷 2020-11-15 오후 5 38 48" src="https://user-images.githubusercontent.com/57122180/99180410-6dac7480-2769-11eb-8537-a21efc87c5ed.png">
 
 > 💡 컴퓨터 과학에서 파이프라인은 한 데이터 처리 단계의 출력이 다음 단계의 입력으로 이어지는 형태로 연결된 구조를 가리킨다.  
 > 이렇게 연결된 데이터 처리 단계는 한 여러 단계가 서로 동시에, 또는 병렬적으로 수행될 수 있어 효율성의 향상을 꾀할 수 있다.  
