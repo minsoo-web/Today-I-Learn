@@ -1,15 +1,12 @@
-# nest App 배포하기
+# GCP 셋업하기
 
-nest App을 GCP, Docker, Jenkins를 이용해서 배포해 봅시다.
+GCP 에서 인스턴스를 생성하고 필요한 패키지들을 세팅해봅시다!
 
 ## 필요한 것
 
-    컴퓨터 (GCP - GCE)
-    배포할 앱 (nest App)
-    docker
-    Jenkins
-    git, github
-    긴 글을 참고 읽을 인내력과 끈기
+    개인 노트북
+    강한 정신력
+    Google 계정
 
 ### Google Compute Engine
 
@@ -45,7 +42,8 @@ nest App을 GCP, Docker, Jenkins를 이용해서 배포해 봅시다.
 머신구성 (목적에 맞게 구성을 바꾸셔도 됩니다.)
 
     시리즈: E2
-    머신 유형: e2-medium
+    머신 유형: e2-medium (이거 써봤는데 진짜 너무 느립니다 🤦)
+    (수정) e2-standard-2(vCPU 2개, 8GB 메모리) <- 이거 쓰세요,,,
 
     부팅 디스크
     Ubuntu 16.04 LTS -> 50GB
@@ -134,7 +132,7 @@ Host gcp
 ssh gcp
 ```
 
-### Setup
+### Package Setup
 
 `git` 은 기본적으로 설치되어 있습니다.
 
@@ -169,7 +167,6 @@ sudo apt-get install \
     curl \
     gnupg-agent \
     software-properties-common
-sudo
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 sudo add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
@@ -214,7 +211,7 @@ wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key 
 sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
     /etc/apt/sources.list.d/jenkins.list'
 sudo apt-get update
-sudo apt-get install jenkins
+sudo apt-get install -y jenkins
 ```
 
 java를 꼭 먼저 설치해주셔야 합니다.
