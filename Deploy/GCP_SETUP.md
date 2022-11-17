@@ -194,25 +194,9 @@ sudo service docker restart
 #### Jenkins
 
 참고 자료
-<https://velog.io/@hamon/Ubuntu18.04%EC%97%90-Jenkins-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0>
-<https://www.jenkins.io/doc/book/installing/linux/>
+https://www.jenkins.io/doc/book/installing/linux/#red-hat-centos
+공식문서 보면 그냥 잘 되어있습니다.
 
-jenkins를 설치하기 위해서는 jdk가 필요합니다.
-
-```bash
-sudo apt-get update
-sudo apt-get install -y openjdk-8-jdk
-```
-
-그리고 나서 터미널에 다음과 같은 명령어를 순차적으로 작성해주세요
-
-```bash
-wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
-    /etc/apt/sources.list.d/jenkins.list'
-sudo apt-get update
-sudo apt-get install -y jenkins
-```
 
 java를 꼭 먼저 설치해주셔야 합니다.
 
